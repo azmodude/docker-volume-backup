@@ -33,4 +33,4 @@ will clean and restore volume named `some_volume` from `/tmp/archive.tar.bz2` ar
 
 ## Wrapper scripts
 
-`bin/backup.sh` and `bin/restore.sh` are little wrapper scripts that simply invocation and also check for existing/in-use volumes and act accordingly.
+`bin/backup.sh` and `bin/restore.sh` are little wrapper scripts that simplify invocation and also check for existing/in-use volumes and act accordingly.
