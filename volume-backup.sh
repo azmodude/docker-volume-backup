@@ -1,23 +1,23 @@
 #!/bin/sh
 
 usage() {
-  echo "Usage: volume-backup <backup|restore> <archive>"
-  exit
+    echo "Usage: volume-backup <backup|restore> <archive>"
+    exit
 }
 
 backup() {
-    mkdir -p `dirname /backup/$ARCHIVE`
-    tar -cjf /backup/$ARCHIVE -C /volume ./
+    mkdir -p $(dirname "/backup/${archive}")
+    tar -cjf "/backup/${archive}" -C /volume ./
 }
 
 restore() {
-    if ! [ -e /backup/$ARCHIVE ]; then
-        echo "Archive file $ARCHIVE does not exist"
+    if ! [ -e "/backup/${archive}" ]; then
+        echo "archive file $archive does not exist"
         exit 1
     fi
 
     rm -rf /volume/* /volume/..?* /volume/.[!.]*
-    tar -C /volume/ -xjf /backup/$ARCHIVE
+    tar -C /volume/ -xjf "/backup/${archive}"
 }
 
 # Needed because sometimes pty is not ready when executing docker-compose run
@@ -29,18 +29,17 @@ if [ $# -ne 2 ]; then
     usage
 fi
 
-OPERATION=$1
+operation=$1
+archive=${2%%.tar.bz2}.tar.bz2
 
-ARCHIVE=${2%%.tar.bz2}.tar.bz2
-
-case "$OPERATION" in
-"backup" )
-backup
-;;
-"restore" )
-restore
-;;
-* )
-usage
-;;
+case "${operation}" in
+    "backup" )
+        backup
+        ;;
+    "restore" )
+        restore
+        ;;
+    * )
+        usage
+        ;;
 esac
