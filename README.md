@@ -18,7 +18,8 @@ will archive volume named `some_volume` to `/tmp/archive.tar.bz2` archive file.
 
 ## Restore
 
-**Note**: This operation will delete all contents of the volume
+- **Note**: This operation will delete all contents of the volume
+- **Note**: The volume to be restored needs to be created first (`docker volume create <volume>`)
 
 Syntax:
 
@@ -29,3 +30,7 @@ For example:
     docker run -v some_volume:/volume -v /tmp:/backup --rm loomchild/volume-backup restore archive1
 
 will clean and restore volume named `some_volume` from `/tmp/archive.tar.bz2` archive file.
+
+## Wrapper scripts
+
+`bin/backup.sh` and `bin/restore.sh` are little wrapper scripts that simply invocation and also check for existing/in-use volumes and act accordingly.
